@@ -1,0 +1,10 @@
+/* pages/comment-list/comment-list.wxss */
+.temp{
+  display: flex;
+  flex-direction: column;
+}
+
+.temp2{
+  display: flex;
+  flex-direction: row;
+}

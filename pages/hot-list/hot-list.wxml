@@ -1,0 +1,14 @@
+<!--pages/hot-list/hot-list.wxml-->
+<!-- <view>
+  <customNav inner-text="热门电影"></customNav>
+</view> -->
+<block wx:for="{{hotFilmList}}" wx:key="title">
+  <view class="movie-card">
+    <i-card i-class="card-demo" title="{{item.title}}" extra_tag="{{ item.tag }}" thumb="{{item.coverImgUrl}}" thumb_mode="widthFix" extra_comment= "{{ commentInfo }}" >
+        <!-- <view slot="content">类型：{{item.tag}}</view>
+        <view slot="content">内容不错</view> -->
+    </i-card>
+  </view>
+</block>
+
+

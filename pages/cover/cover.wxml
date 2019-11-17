@@ -1,0 +1,27 @@
+<!--pages/cover/cover.wxml-->
+<!-- <i-card title="卡片标题" extra="额外内容" thumb="https://i.loli.net/2017/08/21/599a521472424.jpg">
+    <view slot="content">内容不错</view>
+    <view slot="footer">尾部内容</view>
+</i-card> -->
+<!-- swiper默认高度150rpx，这里height自适应屏幕高度 -->
+<swiper class="tab-content" current="{{currentFilm}}" duration="300" bindchange="switchTab"
+  style="height:{{winHeight*0.9}}rpx">
+  <block wx:for="{{hotFilmList}}" wx:key="title">
+    <swiper-item class="cover-swiper">
+      <block class="movie-info">
+          <image class="cover-img" src="{{item.coverImgUrl}}" mode="aspectFit"></image>
+          <view class="movie-title">{{item.title}}</view>
+      </block>
+      <!-- <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="circle"></i-avatar> -->
+      <view class="random-review">
+        <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="circle"></i-avatar>
+        <text class="random-review-text">{{item.randomReview.reviewerName}}给你推介了一部电影</text>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<i-tab-bar current="{{ currentTab }}" bindchange="handleChange" fixed="fixed" >
+    <i-tab-bar-item key="hot" icon="praise" current-icon="praise_fill" title="热门" ></i-tab-bar-item>
+    <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
+</i-tab-bar>

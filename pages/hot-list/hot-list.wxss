@@ -1,0 +1,10 @@
+/* pages/hot-list/hot-list.wxss */
+
+.movie-card{
+  margin-bottom:20rpx;
+}
+
+.card-demo image {
+  /* border-radius: 50%; */
+  width: 250rpx;
+}

@@ -1,0 +1,8 @@
+<view class="topbar" style="padding-top:{{statusBarHeight}}px">
+  <view class="arrow-box row">
+    <image src="/images/default-cover.jpeg"></image>
+  </view>
+  <view class="input-box row">
+    <text class="navText">{{innerText}}</text>
+  </view>
+</view>

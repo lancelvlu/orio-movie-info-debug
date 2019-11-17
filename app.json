@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/cover/cover",
+    "pages/hot-list/hot-list",
+    "pages/movie-detail/movie-detail",
+    "pages/comment-list/comment-list",
+    "pages/comment-detail/comment-detail",
+    "pages/comment-edit/comment-edit",
+    "pages/comment-finish/comment-finish",
+    "pages/mypage/mypage"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "折尾影讯",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

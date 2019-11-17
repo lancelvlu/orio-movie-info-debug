@@ -1,0 +1,115 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.3",
+	"appid": "wx48f28adb1b12e273",
+	"projectname": "%E6%8A%98%E5%B0%BE%E5%BD%B1%E8%AE%AF%E8%B0%83%E8%AF%95",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "cover",
+					"pathName": "pages/cover/cover",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "hot-list",
+					"pathName": "pages/hot-list/hot-list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "movie-detail",
+					"pathName": "pages/movie-detail/movie-detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "comment-list",
+					"pathName": "pages/comment-list/comment-list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "comment-detail",
+					"pathName": "pages/comment-detail/comment-detail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "comment-edit",
+					"pathName": "pages/comment-edit/comment-edit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "comment-finish",
+					"pathName": "pages/comment-finish/comment-finish",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "mypage",
+					"pathName": "pages/mypage/mypage",
+					"scene": null
+				}
+			]
+		}
+	}
+}

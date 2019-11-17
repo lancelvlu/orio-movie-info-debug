@@ -1,0 +1,29 @@
+<!--pages/comment-finish/comment-finish.wxml-->
+<view class='movie-container'>
+  <view class="movie-detail">
+    <image class='movie-image' src="{{movie.image}}" bindtap='imgZoom'></image>
+    <view class='movie-title'>{{movie.title}}</view>
+    <view class="temp">
+      <view class="temp2">
+        <i-avatar slot="icon" src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small" shape="circle"></i-avatar>
+        <text> lancelvlu </text>
+      </view>
+      <i-button bind:click="handleClick" size="small" inline="true">
+        <i-icon type="play"/>
+        <text>15S</text>
+      </i-button>
+    </view>
+    <!-- <view class='movie-category'>{{movie.tag}}</view>
+    <view class='movie-description'>{{movie.desc}}</view> -->
+    <view class='btn-container'>
+      <view class='btn-wrapper' bindtap='goToCommentList' data-id="{{movie.id}}">
+        <i-icon i-class="btn-image-see" type="undo" />
+        <view class='btn-text'>重新编辑</view>
+      </view>
+      <view class='btn-wrapper' bindtap='addComment' data-id="{{movie.id}}" wx:if="{{comments.length === 0}}">
+        <i-icon i-class="btn-image-comment" type="right" />
+        <view class='btn-text'>发布评论</view>
+      </view>
+    </view>
+  </view>
+</view>

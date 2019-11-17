@@ -1,0 +1,22 @@
+<view class="i-class i-card {{ full ? 'i-card-full' : '' }}">
+    <view class="i-class i-card-header">
+        <view class="i-card-header-content">
+            <image class="i-card-header-thumb" src="{{ thumb }}" mode="{{ thumb_mode }}" wx:if="{{ thumb }}" />
+        </view>
+        <view class="i-card-header-info">
+            <view class="i-card-header-title">{{ title }}</view>
+            <view class="i-card-header-extra-tag" wx:if="{{ extra_tag }}">{{ extra_tag }}</view>
+            
+            <view class="i-card-header-extra-comment" wx:if="{{ extra_comment }}">
+              <view class="i-card-header-extra-comment-text" wx:if="{{ extra_comment.text }}">{{ extra_comment.text }}</view>
+              <view class="i-card-header-extra-comment-radio" wx:if="{{ extra_comment.radioUrl }}"></view>
+              <!-- <view class="i-card-header-extra-comment-avatar" wx:if="{{ extra-comment }}"></view> -->
+              <view class="i-card-header-extra-comment-avatar">
+                <i-avatar src="{{ extra_comment.avatarUrl }}" size="small" shape="cirle"></i-avatar>
+                <view>{{ extra_comment.reviewerName }}</view>
+              </view>
+            </view>
+        </view>  
+    </view>
+
+</view>

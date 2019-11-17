@@ -1,0 +1,16 @@
+<!--pages/comment-list/comment-list.wxml-->
+<!-- block和for就能给出内容 -->
+<i-cell-group>
+  <i-cell title="">
+    <view class="temp">
+      <view class="temp2">
+        <i-avatar slot="icon" src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small" shape="circle"></i-avatar>
+        <text> lancelvlu </text>
+      </view>
+      <i-button bind:click="handleClick" size="small" inline="true">
+        <i-icon type="play"/>
+        <text>15S</text>
+      </i-button>
+    </view>
+  </i-cell>
+</i-cell-group>
