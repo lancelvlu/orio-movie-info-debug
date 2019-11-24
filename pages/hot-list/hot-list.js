@@ -1,41 +1,47 @@
 // pages/hot-list/hot-list.js
+const douban = require("../../utils/douban")
+const util = require("../../utils/util")
+const db = require("../../utils/db")
+import regeneratorRuntime from "../../utils/runtime"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    hotMovieList: "", 
     commentInfo: {
       text: "我觉得还不错，推介看一下",
       avatarUrl: "https://i.loli.net/2017/08/21/599a521472424.jpg",
       reviewerName: "lancelvlu"
     },
-    hotFilmList: [
-      {
-        title: "阿凡达",
-        coverImgUrl: "http://p4.qhimg.com/t01c6ab89da78575832.jpg",
-        tag: "动作 / 剧情 / 奇幻 / 科幻"
-      },
-      {
-        title: "终结者",
-        coverImgUrl: "http://p5.qhimg.com/d/_hao360/video/n200905_19_100926095.jpg",
-        tag: "科幻",
-      },
-      {
-        title: "建国大业",
-        coverImgUrl: "http://p1.qhimg.com/d/_hao360/video/vimg0292.jpg",
-        tag: "剧情 / 历史"
-      },
-    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getHotMovieList()
   },
 
+  async getHotMovieList(){
+    wx.showLoading({
+      title: '让数据飞一会儿',
+    })
+    let hotMovieList = await db.readMovieInfoDebug() 
+    wx.hideLoading()
+    this.setData({
+      hotMovieList: hotMovieList.data,
+    })
+    // console.log(hotMovieList.data)
+  },
+
+  navToMovieDetail(event){
+    wx.navigateTo({
+      url: '/pages/movie-detail/movie-detail?movieId=' + event.currentTarget.dataset.movieId,
+    })
+    // console.log(event)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

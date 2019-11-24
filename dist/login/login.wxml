@@ -1,0 +1,12 @@
+<!--components/login/login.wxml-->
+
+<view class="login-card">
+  <!-- <view class="login-head"></view> -->
+  <i-avatar src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1666256797,972082711&fm=26&gp=0.jpg" size="large"></i-avatar>
+  <view class="login-info">
+    <view class="login-text">未登录</view>
+    <view class="login-tips">点击下方“登录”按钮通过微信账户登录</view>
+  </view>
+</view>
+<i-button bind:getuserinfo="onTapLogin"  open-type="getUserInfo" size="small">登录</i-button>
+<!-- <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="onTapLogin">Login</button> -->

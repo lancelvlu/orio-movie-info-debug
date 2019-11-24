@@ -26,8 +26,8 @@ Page({
         coverImgUrl: "http://p1.qhimg.com/d/_hao360/video/vimg0292.jpg",
         tag: "剧情 / 历史"
       },
-    ]
-
+    ],
+    userInfo: null
   },
 
   /**
@@ -43,7 +43,18 @@ Page({
   onReady: function () {
 
   },
+  onTapLogin(event) {
+    // console.log(event)
+    this.setData({
+      userInfo: event.detail.userInfo,
+    })
+  },
 
+  navBackHome(event) {
+    wx.navigateTo({
+      url: '/pages/cover/cover',
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */

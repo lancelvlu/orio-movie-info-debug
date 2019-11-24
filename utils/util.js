@@ -1,3 +1,7 @@
+
+import regeneratorRuntime from "./runtime"
+const douban = require('./douban')
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -14,6 +18,39 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  isAuthenticated() {
+    return new Promise((resolve, reject) => {
+      wx.getSetting({
+        success(res) {
+          if (res.authSetting['scope.userInfo'] === true) {
+            resolve()
+          } else {
+            reject()
+          }
+        }
+      })
+    })
+  },
+
+  getUserInfo() {
+    return new Promise((resolve, reject) => {
+      this.isAuthenticated().then(() => {
+        wx.getUserInfo({
+          success(res) {
+            const userInfo = res.userInfo
+            resolve(userInfo)
+          }
+        })
+      }).catch(() => {
+        reject()
+      })
+    })
+  },
+
+  getId() {
+    return Math.floor((1 + Math.random()) * 0x100000000).toString(16).slice(1)
+  },
 }

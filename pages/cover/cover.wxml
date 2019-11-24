@@ -4,12 +4,12 @@
     <view slot="footer">尾部内容</view>
 </i-card> -->
 <!-- swiper默认高度150rpx，这里height自适应屏幕高度 -->
-<swiper class="tab-content" current="{{currentFilm}}" duration="300" bindchange="switchTab"
+<swiper class="tab-content" current="{{currentMovie}}" duration="300" 
   style="height:{{winHeight*0.9}}rpx">
-  <block wx:for="{{hotFilmList}}" wx:key="title">
+  <block wx:for="{{hotMovieList}}" wx:key="title">
     <swiper-item class="cover-swiper">
       <block class="movie-info">
-          <image class="cover-img" src="{{item.coverImgUrl}}" mode="aspectFit"></image>
+          <image class="cover-img" src="{{item.images.large}}" mode="aspectFit"></image>
           <view class="movie-title">{{item.title}}</view>
       </block>
       <!-- <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="circle"></i-avatar> -->
@@ -22,6 +22,6 @@
 </swiper>
 
 <i-tab-bar current="{{ currentTab }}" bindchange="handleChange" fixed="fixed" >
-    <i-tab-bar-item key="hot" icon="praise" current-icon="praise_fill" title="热门" ></i-tab-bar-item>
-    <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
+    <i-tab-bar-item key="hot-list" icon="praise" current-icon="praise_fill" title="热门" ></i-tab-bar-item>
+    <i-tab-bar-item key="mypage" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
 </i-tab-bar>

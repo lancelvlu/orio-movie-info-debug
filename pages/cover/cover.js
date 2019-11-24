@@ -1,13 +1,16 @@
 // pages/cover/cover.js
+const douban = require("../../utils/douban")
+const db = require("../../utils/db")
+import regeneratorRuntime from "../../utils/runtime"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentTab : "hot",
-    currentFilm : 0,
-    hotFilmList : [
+    currentTab : "hot-list",
+    currentMovie : 0,
+    hotMovieList : [
       {
         title: "阿凡达",
         coverImgUrl: "http://p4.qhimg.com/t01c6ab89da78575832.jpg",
@@ -39,11 +42,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getHotmovieList()
     wx.getSystemInfo({
       success: (res) => {
         let clientHeight = res.windowHeight, clientWidth = res.windowWidth, rpxR = 750 / clientWidth;
         let winHeight = clientHeight * rpxR;
-        console.log(winHeight)
+        // console.log(winHeight)
         this.setData({
           winHeight: winHeight
         });
@@ -53,11 +57,37 @@ Page({
   },
 
   handleChange(detail){
-    this.setData({
-      currentTab : detail.detail.key
+    // this.setData({
+    //   currentTab : detail.detail.key
+    // })
+    wx.navigateTo({
+      url: '/pages/' + detail.detail.key + "/" + detail.detail.key,
     })
+    // console.log(detail.detail.key)
   },
 
+  getHotmovieList(){
+    wx.showLoading({
+      title: '让数据飞一会儿...',
+    })
+    douban.find('in_theaters', 0, 5)
+      .then(d => {
+        let temp = d.subjects
+        temp.forEach(function (item) {
+          item['summay'] = ''
+          item['tag'] = item['genres'].join(' / ')
+        })
+        this.setData({
+          hotMovieList: temp
+        })
+        return new Promise((resolve, reject) => {
+          resolve(temp)
+        })
+      }).then(value => {
+        db.addMovieInfoDebug(value)
+        wx.hideLoading()
+      })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

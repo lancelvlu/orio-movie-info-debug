@@ -1,13 +1,18 @@
 <!--pages/mypage/mypage.wxml-->
-<i-divider content="收藏的影评 V" color="#ff9900"></i-divider>
-<block wx:for="{{hotFilmList}}" wx:key="title">
-  <view class="movie-card">
-    <i-card i-class="card-demo" title="{{item.title}}" thumb="{{item.coverImgUrl}}" thumb_mode="widthFix" extra_comment= "{{ commentInfo }}" >
-        <!-- <view slot="content">类型：{{item.tag}}</view>
-        <view slot="content">内容不错</view> -->
-    </i-card>
+<view wx:if="{{ !userInfo }}">
+  <login bindonLogin="onTapLogin"></login>
+</view>
+<view wx:else>
+  <i-divider content="收藏的影评 V" color="#ff9900"></i-divider>
+  <block wx:for="{{hotFilmList}}" wx:key="title">
+    <view class="movie-card">
+      <i-card i-class="card-demo" title="{{item.title}}" thumb="{{item.coverImgUrl}}" thumb_mode="widthFix" extra_comment= "{{ commentInfo }}" >
+          <!-- <view slot="content">类型：{{item.tag}}</view>
+          <view slot="content">内容不错</view> -->
+      </i-card>
+    </view>
+  </block>
+  <view class="finish-button">
+    <i-button bind:click="navBackHome" type="ghost" long="true">返回首页</i-button>
   </view>
-</block>
-<view class="finish-button">
-  <i-button bind:click="handleClick" type="ghost" long="true">完成</i-button>
 </view>
