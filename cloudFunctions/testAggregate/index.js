@@ -3,14 +3,14 @@ const cloud = require('wx-server-sdk')
 
 cloud.init()
 
+const db = cloud.database()
+
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-
-  return {
-    event,
-    openid: wxContext.OPENID,
-    appid: wxContext.APPID,
-    unionid: wxContext.UNIONID,
-  }
+  let temp = await db.collection("movie-info").aggregate().group({
+    _id: "$subtype",
+    uniqueValues: $.sum(1)
+  }).end()
+  return temp
 }

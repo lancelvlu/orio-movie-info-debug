@@ -1,6 +1,7 @@
 // pages/cover/cover.js
 const douban = require("../../utils/douban")
 const db = require("../../utils/db")
+const util = require("../../utils/util")
 import regeneratorRuntime from "../../utils/runtime"
 Page({
 
@@ -41,27 +42,44 @@ Page({
     // console.log(detail.detail.key)
   },
 
-  getHotmovieList(){
+  async getHotmovieList(){
+    
     wx.showLoading({
       title: '让数据飞一会儿...',
     })
-    douban.find('in_theaters', 0, 10)
-      .then(d => {
-        let temp = d.subjects
-        temp.forEach(function (item) {
-          item['summay'] = ''
-          item['tag'] = item['genres'].join(' / ')
-        })
-        this.setData({
-          hotMovieList: temp
-        })
-        return new Promise((resolve, reject) => {
-          resolve(temp)
-        })
-      }).then(value => {
-        db.addMovieInfoDebug(value)
-        wx.hideLoading()
+    let testLog = await wx.cloud.callFunction({
+      name: 'testAggregate',
+    })
+    console.log(testLog)
+    const fetchTime = +new Date()
+    const fetchDate = util.formatTime(fetchTime, "yyyy-MM-dd")
+    let fetchDB = await db.fetchJudgement(fetchDate)
+    if (fetchDB.data.length > 0){
+      // console.log(fetchDB.data)
+      this.setData({
+        hotMovieList: fetchDB.data[0].movieList
       })
+      wx.hideLoading()
+    } else{
+      douban.find('in_theaters', 0, 10)
+        .then(d => {
+          
+          let movieInfoList = d.subjects
+          movieInfoList.forEach(function (item) {
+            item['summay'] = ''
+            item['tag'] = item['genres'].join(' / ')
+          })
+          this.setData({
+            hotMovieList: movieInfoList
+          })
+          return new Promise((resolve, reject) => {
+            resolve([movieInfoList, fetchTime, fetchDate])
+          })
+        }).then((inputList) => {
+          db.addMovieInfoDebug(inputList[0], inputList[1], inputList[2])
+          wx.hideLoading()
+        })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
