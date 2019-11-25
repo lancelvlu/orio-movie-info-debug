@@ -10,32 +10,7 @@ Page({
   data: {
     currentTab : "hot-list",
     currentMovie : 0,
-    hotMovieList : [
-      {
-        title: "阿凡达",
-        coverImgUrl: "http://p4.qhimg.com/t01c6ab89da78575832.jpg",
-        randomReview: {
-          reviewerName: "lulu",
-          reviewerAvatar: "https://c-ssl.duitang.com/uploads/item/201811/16/20181116003702_mlard.thumb.700_0.jpg"
-        }
-      },
-      {
-        title: "终结者",
-        coverImgUrl: "http://p5.qhimg.com/d/_hao360/video/n200905_19_100926095.jpg",
-        randomReview: {
-          reviewerName: "xhh",
-          reviewerAvatar: "http://b-ssl.duitang.com/uploads/item/201708/24/20170824110601_evE3L.jpeg"
-        }
-      },
-      {
-        title: "建国大业",
-        coverImgUrl: "http://p1.qhimg.com/d/_hao360/video/vimg0292.jpg",
-        randomReview: {
-          reviewerName: "zzr",
-          reviewerAvatar: "http://cdn.duitang.com/uploads/item/201410/26/20141026191422_yEKyd.thumb.700_0.jpeg"
-        }
-      },
-    ]
+    hotMovieList :''
   },
 
   /**
@@ -70,7 +45,7 @@ Page({
     wx.showLoading({
       title: '让数据飞一会儿...',
     })
-    douban.find('in_theaters', 0, 5)
+    douban.find('in_theaters', 0, 10)
       .then(d => {
         let temp = d.subjects
         temp.forEach(function (item) {
