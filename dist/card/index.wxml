@@ -8,12 +8,18 @@
             <view class="i-card-header-extra-tag" wx:if="{{ extra_tag }}">{{ extra_tag }}</view>
             
             <view class="i-card-header-extra-comment" wx:if="{{ extra_comment }}">
-              <view class="i-card-header-extra-comment-text" wx:if="{{ extra_comment.text }}">{{ extra_comment.text }}</view>
-              <view class="i-card-header-extra-comment-radio" wx:if="{{ extra_comment.radioUrl }}"></view>
+              <view class="i-card-header-extra-comment-text" wx:if="{{ extra_comment.commentType === '文字' }}">{{ extra_comment.commentContent }}</view>
+               <!-- <view class="i-card-header-extra-comment-text">{{ extra_comment.commentContent }}</view> -->
+              <view class="i-card-header-extra-comment-radio" wx:else>
+                <i-button size="small" inline="true">
+                <i-icon type="play"/>
+                <text>点击播放</text>
+                </i-button>
+              </view>
               <!-- <view class="i-card-header-extra-comment-avatar" wx:if="{{ extra-comment }}"></view> -->
               <view class="i-card-header-extra-comment-avatar">
-                <i-avatar src="{{ extra_comment.avatarUrl }}" size="small" shape="cirle"></i-avatar>
-                <view>{{ extra_comment.reviewerName }}</view>
+                <i-avatar src="{{ extra_comment.avatar }}" size="small" shape="cirle"></i-avatar>
+                <view>{{ extra_comment.username }}</view>
               </view>
             </view>
         </view>  

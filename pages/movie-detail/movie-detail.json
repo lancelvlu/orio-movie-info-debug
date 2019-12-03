@@ -1,6 +1,9 @@
 {
   "usingComponents": {
     "i-icon": "../../dist/icon/index",
-    "i-action-sheet": "../../dist/action-sheet/index"
-  }
+    "i-action-sheet": "../../dist/action-sheet/index",
+    "i-avatar": "../../dist/avatar/index"
+  },
+  "navigationBarTitleText": "电影详情",
+  "navigationBarTextStyle": "black"
 }

@@ -9,11 +9,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 .movie-image {
   height: 300rpx;
   width: 200rpx;
-  margin-top: -30rpx; 
+  margin-top: -50rpx; 
 }
 .movie-title {
   font-size: 40rpx;
@@ -54,7 +55,9 @@ word-break: break-all;
   justify-content: center;
   align-items: center;
   height: 80rpx;
-  width: 35%;
+  width: 200rpx;
+  margin-left:20rpx;
+  margin-right:20rpx;
 }
 .btn-image-see {
   width: 45rpx;
@@ -85,4 +88,7 @@ word-break: break-all;
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+.input-box{
+  padding-bottom: 30rpx;
 }

@@ -11,7 +11,7 @@ Page({
   data: {
     currentTab : "hot-list",
     currentMovie : 0,
-    hotMovieList :''
+    randomComment :[]
   },
 
   /**
@@ -19,11 +19,11 @@ Page({
    */
   onLoad: function (options) {
     this.getHotmovieList()
+    this.getRandomComment()
     wx.getSystemInfo({
       success: (res) => {
         let clientHeight = res.windowHeight, clientWidth = res.windowWidth, rpxR = 750 / clientWidth;
         let winHeight = clientHeight * rpxR;
-        // console.log(winHeight)
         this.setData({
           winHeight: winHeight
         });
@@ -33,27 +33,25 @@ Page({
   },
 
   handleChange(detail){
-    // this.setData({
-    //   currentTab : detail.detail.key
-    // })
     wx.navigateTo({
-      url: '/pages/' + detail.detail.key + "/" + detail.detail.key,
+      url: '/pages/' + detail.detail.key + "/" + detail.detail.key + "?fetchDate=" + this.data.fetchDate,
     })
-    // console.log(detail.detail.key)
   },
 
   async getHotmovieList(){
-    
     wx.showLoading({
-      title: '让数据飞一会儿...',
+      title: '让数据飞一会儿',
     })
-    let testLog = await wx.cloud.callFunction({
-      name: 'testAggregate',
-    })
-    console.log(testLog)
+    
+    
+    //获取当前时间戳和日期
     const fetchTime = +new Date()
     const fetchDate = util.formatTime(fetchTime, "yyyy-MM-dd")
-    let fetchDB = await db.fetchJudgement(fetchDate)
+    this.setData({
+      fetchDate: fetchDate
+    })
+    //查看是否今日已经获取过热门电影列表
+    let fetchDB = await db.readMovieInfoDebug(fetchDate)
     if (fetchDB.data.length > 0){
       // console.log(fetchDB.data)
       this.setData({
@@ -61,29 +59,60 @@ Page({
       })
       wx.hideLoading()
     } else{
-      douban.find('in_theaters', 0, 10)
+    const fetchedMovieInfoList = await douban.find('in_theaters', 0, 20)
         .then(d => {
-          
           let movieInfoList = d.subjects
           movieInfoList.forEach(function (item) {
-            item['summay'] = ''
+            item['summary'] = ''
             item['tag'] = item['genres'].join(' / ')
           })
           this.setData({
             hotMovieList: movieInfoList
           })
-          return new Promise((resolve, reject) => {
-            resolve([movieInfoList, fetchTime, fetchDate])
-          })
-        }).then((inputList) => {
-          db.addMovieInfoDebug(inputList[0], inputList[1], inputList[2])
-          wx.hideLoading()
+          return movieInfoList
         })
+
+      // console.log(fetchedMovieInfoList)
+    //获取现有的数据库movie-ifo的id作为list，然后判断新获取的list有没有在这里面
+    //如果没有则新增条目
+    //如果有则不作任何操作
+    //可以考虑切换到云函数
+
+    //获取已存电影id列表
+    const storedMovieIdList = await db.testAggregate()
+      // console.log(storedMovieIdList.list)
+    if (storedMovieIdList.list.length > 0){
+      let newMovieInfoList = await fetchedMovieInfoList.filter(item => !~(storedMovieIdList.list[0].movieIdList).indexOf(item.id))
+      // console.log(newMovieInfoList)
+      await db.addMovieInfoDebug(fetchedMovieInfoList, newMovieInfoList, fetchTime, fetchDate)
+    } else {
+      await db.addMovieInfoDebug(fetchedMovieInfoList, fetchedMovieInfoList, fetchTime, fetchDate)
     }
-  },
+    }
+    wx.hideLoading()
+    },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
+  async getRandomComment(){
+    let commentInfo = await db.getRandomComment()
+    this.setData({
+      randomComment: [{
+        title: commentInfo.list[0].movieTitle, 
+        coverUrl: commentInfo.list[0].coverUrl,
+        commentId: commentInfo.list[0]._id,
+        avatar: commentInfo.list[0].avatar,
+        username: commentInfo.list[0].username
+      }]
+    })
+  },
+  navToComment(event){
+    wx.navigateTo({
+      url: '/pages/comment-detail/comment-detail?commentId=' + this.data.randomComment[0].commentId + "&title=" + this.data.randomComment[0].title + "&coverUrl=" + this.data.randomComment[0].coverUrl,
+    })
+  },
+
   onReady: function () {
 
   },

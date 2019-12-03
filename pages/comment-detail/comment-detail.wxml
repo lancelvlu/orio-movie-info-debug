@@ -1,30 +1,42 @@
 <!--pages/comment-detail/comment-detail.wxml-->
 
-<view class='movie-container'>
+<view wx:if="{{ !userInfo }}">
+  <login bindonLogin="onTapLogin"></login>
+</view>
+
+<view wx:else class='movie-container'>
   <view class="movie-detail">
-    <image class='movie-image' src="{{movie.image}}" bindtap='imgZoom'></image>
+    <image class='movie-image' src="{{movie.coverUrl}}" bindtap='imgZoom'></image>
     <view class='movie-title'>{{movie.title}}</view>
     <view class="temp">
       <view class="temp2">
-        <i-avatar slot="icon" src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small" shape="circle"></i-avatar>
-        <text> lancelvlu </text>
+        <i-avatar slot="icon" src="{{comment.avatar}}" size="default" shape="circle"></i-avatar>
+        <text> {{comment.username}} </text>
       </view>
-      <i-button bind:click="handleClick" size="small" inline="true">
+      <block wx:if="{{comment.commentType === '文字'}}">
+        <text> {{comment.commentContent}} </text>
+      </block>
+      <block wx:else>
+        <i-button bind:click="tapPlay" size="small" inline="true" data-radiopath="{{comment.commentContent}}">
         <i-icon type="play"/>
-        <text>15S</text>
+        <text>点击播放</text>
       </i-button>
+      </block>
+      
     </view>
     <!-- <view class='movie-category'>{{movie.tag}}</view>
     <view class='movie-description'>{{movie.desc}}</view> -->
     <view class='btn-container'>
-      <view class='btn-wrapper' bindtap='goToCommentList' data-id="{{movie.id}}">
+      <view class='btn-wrapper' bindtap='markComment' data-id="{{movie.id}}">
         <i-icon i-class="btn-image-see" type="collection_fill" />
         <view class='btn-text'>收藏</view>
       </view>
-      <view class='btn-wrapper' bindtap='addComment' data-id="{{movie.id}}" wx:if="{{comments.length === 0}}">
+      <!-- <view class='btn-wrapper' bindtap='addComment' data-id="{{movie.id}}" wx:if="{{comments.length === 0}}"> -->
+      <view class='btn-wrapper' bindtap='handleOpen1' data-id="{{movie.id}}">
         <i-icon i-class="btn-image-comment" type="brush_fill" />
         <view class='btn-text'>写评论</view>
       </view>
     </view>
   </view>
 </view>
+<i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />

@@ -6,16 +6,16 @@
 <!-- swiper默认高度150rpx，这里height自适应屏幕高度 -->
 <swiper class="tab-content" current="{{currentMovie}}" duration="300" 
   style="height:{{winHeight*0.9}}rpx">
-  <block wx:for="{{hotMovieList}}" wx:key="title">
-    <swiper-item class="cover-swiper">
+  <block wx:for="{{randomComment}}" wx:key="title">
+    <swiper-item bindtap="navToComment" class="cover-swiper">
       <block class="movie-info">
-          <image class="cover-img" src="{{item.images.large}}" mode="aspectFit"></image>
+          <image class="cover-img" src="{{item.coverUrl}}" mode="aspectFit"></image>
           <view class="movie-title">{{item.title}}</view>
       </block>
       <!-- <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="circle"></i-avatar> -->
       <view class="random-review">
-        <i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large" shape="circle"></i-avatar>
-        <text class="random-review-text">{{item.randomReview.reviewerName}}给你推介了一部电影</text>
+        <i-avatar src="{{item.avatar}}" size="large" shape="circle"></i-avatar>
+        <text class="random-review-text">{{item.username}}给你推介了一部电影</text>
       </view>
     </swiper-item>
   </block>
@@ -25,3 +25,4 @@
     <i-tab-bar-item key="hot-list" icon="praise" current-icon="praise_fill" title="热门" ></i-tab-bar-item>
     <i-tab-bar-item key="mypage" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
 </i-tab-bar>
+

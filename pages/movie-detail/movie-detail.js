@@ -3,21 +3,30 @@ const douban = require("../../utils/douban")
 const util = require("../../utils/util")
 const db = require("../../utils/db")
 import regeneratorRuntime from "../../utils/runtime"
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    movieInfo: '',
+    movieInfo: "",
+    visible1: false,
+    actions1: [
+      {
+        name: '语音',
+        icon: 'translation'
+      },
+      {
+        name: '文字',
+        icon: 'brush'
+      },
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // console.log(options)
     this.updateMovieInfo(options.movieId)
   },
   
@@ -33,25 +42,46 @@ Page({
         id: movieId}
     })
     if (!!temp.data[0].summary){
-      console.log("in yes")
       wx.hideLoading()
     } else {
-      console.log("in no")
       await douban.findOne(movieId).then(d =>{
       this.setData({
         'movieInfo.summary' : d.summary
       })
-      wx.hideLoading()
-      return new Promise((resolve, reject)=>{
-        resolve({id:movieId, summary: d.summary})
+      wx.cloud.callFunction({
+        name: 'updateSummary',
+        data: {
+          movieId: movieId,
+          movieSummary: d.summary
+        }
       })
-    }).then( value => {
-      db.updateSummary(value.id, value.summary)
+      wx.hideLoading()
+    })
     }
 
-    )
-    }
+  },
+  handleOpen1() {
+    this.setData({
+      visible1: true
+    });
+  },
 
+  handleCancel1() {
+    this.setData({
+      visible1: false
+    });
+  },
+  handleClickItem1({ detail }) {
+    wx.navigateTo({
+      url: '/pages/comment-edit/comment-edit?movieId=' + this.data.movieInfo.id + "&commentType=" + this.data.actions1[detail.index]['name'] + "&coverUrl=" + this.data.movieInfo.coverUrl + "&title=" + this.data.movieInfo.title,
+    })
+    // console.log(this.data.actions1[detail.index])
+  },
+
+  goToCommentList(event){
+    wx.navigateTo({
+      url: '/pages/comment-list/comment-list?movieId='+this.data.movieInfo.id,
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

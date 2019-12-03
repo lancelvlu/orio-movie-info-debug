@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "i-avatar": "../avatar/index"
+    "i-avatar": "../avatar/index",
+    "i-button": "../button/index",
+    "i-icon": "../icon/index"
   }
 }

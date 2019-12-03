@@ -11,10 +11,11 @@
         <i-icon class="btn-image-see" type="browse" />
         <view class='btn-text'>查看影评</view>
       </view>
-      <view class='btn-wrapper' bindtap='addComment' data-id="{{movieInfo.id}}" wx:if="{{comments.length === 0}}">
-        <i-icon i-class="btn-image-comment" type="browse" />
+      <view class='btn-wrapper' bindtap='handleOpen1' data-id="{{movieInfo.id}}" >
+        <i-icon i-class="btn-image-comment" type="editor" />
         <view class='btn-text'>添加影评</view>
       </view>
     </view>
   </view>
 </view>
+<i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" />

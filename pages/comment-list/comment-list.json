@@ -4,6 +4,9 @@
     "i-cell": "../../dist/cell/index",
     "i-avatar": "../../dist/avatar/index",
     "i-button": "../../dist/button/index",
-    "i-icon": "../../dist/icon/index"
-    }
+    "i-icon": "../../dist/icon/index",
+    "login": "../../dist/login/login"
+    },
+    "navigationBarTitleText": "评论列表",
+    "navigationBarTextStyle": "black"
 }

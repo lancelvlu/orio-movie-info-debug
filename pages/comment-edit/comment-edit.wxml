@@ -1,38 +1,70 @@
 <!--pages/comment-edit/comment-edit.wxml-->
+<view wx:if="{{!!userInfo}}">
 
-<view class='movie-container'>
+<view  class='movie-container'>
+
   <view class="movie-detail">
-    <image class='movie-image' src="{{movie.image}}" bindtap='imgZoom'></image>
+  <!--  movie-detail -->
+    <image class='movie-image' src="{{movie.coverUrl}}" bindtap='imgZoom'></image>
     <view class='movie-title'>{{movie.title}}</view>
-    <i-panel>
-      <i-input value="{{ value1 }}" autofocus placeholder="请输入你影评内容..." bind:change="myInput"/>
-    </i-panel>
-    <!-- <view class="temp">
-      <view class="temp2">
-        <i-avatar slot="icon" src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small" shape="circle"></i-avatar>
-        <text> lancelvlu </text>
+
+    <view wx:if="{{!editFinish}}">
+    <!--  editFinish -->
+      <view wx:if="{{commentType === '文字'}}" class="input-box">
+        <i-panel>
+          <i-input value="{{ commentContent }}" autofocus placeholder="请输入你的影评内容..." bind:change="myInput"/>
+        </i-panel>
       </view>
-      <i-button bind:click="handleClick" size="small" inline="true">
-        <i-icon type="play"/>
-        <text>15S</text>
-      </i-button>
-    </view> -->
-    <!-- <view class='movie-category'>{{movie.tag}}</view>
-    <view class='movie-description'>{{movie.desc}}</view> -->
-    <view class='btn-container'>
-      <view class='btn-wrapper' bindtap='goToCommentList' data-id="{{movie.id}}">
-        <i-icon i-class="btn-image-see" type="translation_fill" />
-        <view class='btn-text'>录音</view>
+
+      <view wx:else class='btn-container'>
+        <view class='btn-wrapper' catch:longpress="handleRecordStart" catch:touchmove="handleTouchMove" catch:touchend="handleRecordStop" data-id="{{movie.id}}">
+          <i-icon i-class="btn-image-see" type="translation_fill" />
+          <view class='btn-text'>长按录音</view>
+        </view>
       </view>
-      <!-- <view class='btn-wrapper' bindtap='addComment' data-id="{{movie.id}}" wx:if="{{comments.length === 0}}">
-        <i-icon i-class="btn-image-comment" type="brush_fill" />
-        <view class='btn-text'>写评论</view>
-      </view> -->
-    </view>
     
-  </view>
-  
+      
+    <!--  editFinish -->
+    </view>
+    <view class="edit-fininsh" wx:if="{{editFinish}}">
+      <view>
+        <i-avatar src="{{userInfo.avatarUrl}}" size="large"></i-avatar>
+        <text>{{userInfo.nickName}}</text>
+      </view>
+      <view wx:if="{{commentType === '文字'}}" class='movie-description'>{{commentContent}}</view>
+      <view wx:else>
+        <view class='btn-wrapper' bindtap="tapPlay" data-id="{{movie.id}}">
+          <i-icon i-class="btn-image-see" type="play" />
+          <view class='btn-text'>点击播放</view>
+        </view>
+      </view>
+      
+      
+
+      <view class='btn-container'>
+        <view class='btn-wrapper' bindtap='tapReturnEdit' data-id="{{movieInfo.id}}">
+          <i-icon class="btn-image-see" type="browse" />
+          <view class='btn-text'>重新编辑</view>
+        </view>
+        <view class='btn-wrapper' bindtap='addComment' data-id="{{movieInfo.id}}" >
+          <i-icon i-class="btn-image-comment" type="editor" />
+          <view class='btn-text'>提交评论</view>
+        </view>
+      </view>
+      
+    </view>
+  <!--  movie-detail -->
+  </view>  
+
 </view>
-<view class="finish-button">
-  <i-button bind:click="handleClick" type="success" long="true">完成</i-button>
+<view wx:if="{{!editFinish}}" class="finish-button">
+        <i-button bind:click="tapFinnishEdit" type="success" long="true">完成</i-button>
+      </view>  
 </view>
+
+
+
+<view wx:else>
+  <login bindonLogin="onTapLogin"></login>
+</view>
+

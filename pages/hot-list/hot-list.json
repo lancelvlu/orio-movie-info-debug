@@ -2,5 +2,8 @@
   "usingComponents": {
     "i-card": "../../dist/card/index",
     "i-panel": "../../dist/panel/index"
-  }
+  },
+
+  "navigationBarTitleText": "热门列表",
+  "navigationBarTextStyle": "black"
 }

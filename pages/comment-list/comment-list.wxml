@@ -1,16 +1,29 @@
 <!--pages/comment-list/comment-list.wxml-->
 <!-- block和for就能给出内容 -->
-<i-cell-group>
-  <i-cell title="">
-    <view class="temp">
-      <view class="temp2">
-        <i-avatar slot="icon" src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small" shape="circle"></i-avatar>
-        <text> lancelvlu </text>
+<view wx:if="{{ !userInfo }}">
+  <login bindonLogin="onTapLogin"></login>
+</view>
+<view wx:else>
+  <i-cell-group>
+    <block wx:for="{{commnentList}}" wx:key="_id">
+    <i-cell bindtap="navToComment" data-id="{{item._id}}" title="">
+      <view  class="temp">
+        <view class="temp2">
+          <i-avatar slot="icon" src="{{item.avatar}}" size="small" shape="circle"></i-avatar>
+          <text> {{item.username}} </text>
+        </view>
+      <block wx:if="{{item.commentType === '文字'}}">
+      <text>{{item.commentContent}}</text>
+      </block>
+      <block wx:else>
+        <i-button bind:click="handleClick" size="small" inline="true" data-id="{{item.commentContent}}">
+          <i-icon type="play"/>
+          <text>点击播放</text>
+        </i-button>
+      </block>
+      
       </view>
-      <i-button bind:click="handleClick" size="small" inline="true">
-        <i-icon type="play"/>
-        <text>15S</text>
-      </i-button>
-    </view>
-  </i-cell>
-</i-cell-group>
+    </i-cell>
+    </block>  
+  </i-cell-group>
+</view>

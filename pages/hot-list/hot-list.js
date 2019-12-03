@@ -21,17 +21,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotMovieList()
+    this.getHotMovieList(options.fetchDate)
   },
 
-  async getHotMovieList(){
+  async getHotMovieList(fetchDate){
     wx.showLoading({
       title: '让数据飞一会儿',
     })
-    let hotMovieList = await db.readMovieInfoDebug() 
+    let hotMovieList = await db.readMovieInfoDebug(fetchDate) 
     wx.hideLoading()
     this.setData({
-      hotMovieList: hotMovieList.data,
+      hotMovieList: hotMovieList.data[0].movieList,
     })
     // console.log(hotMovieList.data)
   },

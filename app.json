@@ -6,7 +6,6 @@
     "pages/comment-list/comment-list",
     "pages/comment-detail/comment-detail",
     "pages/comment-edit/comment-edit",
-    "pages/comment-finish/comment-finish",
     "pages/mypage/mypage"
   ],
   "window": {

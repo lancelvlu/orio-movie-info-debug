@@ -3,6 +3,9 @@
     "i-icon": "../../dist/icon/index",
     "i-avatar": "../../dist/avatar/index",
     "i-button": "../../dist/button/index",
-    "i-input": "../../dist/input/index"
-  }
+    "i-input": "../../dist/input/index",
+    "login": "../../dist/login/login"
+  },
+  "navigationBarTitleText": "评论编写",
+  "navigationBarTextStyle": "black"
 }
